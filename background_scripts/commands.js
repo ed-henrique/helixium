@@ -407,24 +407,24 @@ const Commands = {
 };
 
 const defaultKeyMappings = {
-  // Navigating the current page
+  // Navigating the current page (Helix-style movement and scrolling)
   "j": "scrollDown",
   "k": "scrollUp",
   "h": "scrollLeft",
   "l": "scrollRight",
-  "gg": "scrollToTop",
-  "G": "scrollToBottom",
-  "zH": "scrollToLeft",
-  "zL": "scrollToRight",
-  "<c-e>": "scrollDown",
-  "<c-y>": "scrollUp",
-  "d": "scrollPageDown",
-  "u": "scrollPageUp",
+  "gg": "scrollToTop",           // Helix goto: start of file
+  "ge": "scrollToBottom",        // Helix goto: end of file
+  "gh": "scrollToLeft",          // Helix goto: line start
+  "gl": "scrollToRight",         // Helix goto: line end
+  "<c-d>": "scrollPageDown",     // Helix: half page down
+  "<c-u>": "scrollPageUp",       // Helix: half page up
+  "<c-f>": "scrollFullPageDown", // Helix: page down
+  "<c-b>": "scrollFullPageUp",   // Helix: page up
   "r": "reload",
   "R": "reload hard",
-  "yy": "copyCurrentUrl",
-  "p": "openCopiedUrlInCurrentTab",
-  "P": "openCopiedUrlInNewTab",
+  "yy": "copyCurrentUrl",        // Helix: yank (URL is the page's primary content)
+  "p": "openCopiedUrlInCurrentTab", // Helix: paste after
+  "P": "openCopiedUrlInNewTab",     // Helix: paste before
   "gi": "focusInput",
   "[[": "goPrevious",
   "]]": "goNext",
@@ -432,51 +432,47 @@ const defaultKeyMappings = {
   "gF": "mainFrame",
   "gu": "goUp",
   "gU": "goToRoot",
-  "i": "enterInsertMode",
-  "v": "enterVisualMode",
+  "i": "enterInsertMode",        // Helix: insert before selection
+  "v": "enterVisualMode",        // Helix: enter select mode
   "V": "enterVisualLineMode",
 
-  // Link hints
+  // Link hints (f in Helix is find-next-char; in browser context it opens link hints)
   "f": "LinkHints.activateMode",
   "F": "LinkHints.activateModeToOpenInNewTab",
   "<a-f>": "LinkHints.activateModeWithQueue",
   "yf": "LinkHints.activateModeToCopyLinkUrl",
 
-  // Using find
+  // Using find (Helix search)
   "/": "enterFindMode",
-  "n": "performFind",
-  "N": "performBackwardsFind",
-  "*": "findSelected",
+  "n": "performFind",            // Helix: select next search match
+  "N": "performBackwardsFind",   // Helix: select previous search match
+  "*": "findSelected",           // Helix: use selection as search pattern
   "#": "findSelectedBackwards",
 
-  // Vomnibar
-  "o": "Vomnibar.activate",
-  "O": "Vomnibar.activateInNewTab",
-  "T": "Vomnibar.activateTabSelection",
-  "b": "Vomnibar.activateBookmarks",
-  "B": "Vomnibar.activateBookmarksInNewTab",
-  "ge": "Vomnibar.activateEditUrl",
-  "gE": "Vomnibar.activateEditUrlInNewTab",
+  // Vomnibar (Space-mode prefix, analogous to Helix's space mode)
+  "<space>f": "Vomnibar.activate",           // Space: file picker → open URL/history
+  "<space>F": "Vomnibar.activateInNewTab",
+  "<space>b": "Vomnibar.activateTabSelection", // Space: buffer picker → tab selection
+  "<space>B": "Vomnibar.activateBookmarks",
+  "<space>/": "Vomnibar.activateEditUrl",    // Space: search → edit current URL
 
-  // Navigating history
+  // Navigating history (H/L are unassigned in Helix, natural for browser back/forward)
   "H": "goBack",
   "L": "goForward",
 
-  // Manipulating tabs
-  "K": "nextTab",
-  "J": "previousTab",
-  "gt": "nextTab",
-  "gT": "previousTab",
+  // Manipulating tabs (gn/gp follow Helix's goto-mode next/previous buffer pattern)
+  "gn": "nextTab",               // Helix goto: next buffer
+  "gp": "previousTab",           // Helix goto: previous buffer
+  "g0": "firstTab",
+  "g$": "lastTab",
   "^": "visitPreviousTab",
   "<<": "moveTabLeft",
   ">>": "moveTabRight",
-  "g0": "firstTab",
-  "g$": "lastTab",
   "W": "moveTabToNewWindow",
-  "t": "createTab",
+  "<space>n": "createTab",       // Space: new buffer/tab
   "yt": "duplicateTab",
-  "x": "removeTab",
-  "X": "restoreTab",
+  "<space>d": "removeTab",       // Space: delete/close tab
+  "<space>D": "restoreTab",      // Space: restore closed tab
   "<a-p>": "togglePinTab",
   "<a-m>": "toggleMuteTab",
   "zi": "zoomIn",

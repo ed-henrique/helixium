@@ -148,14 +148,14 @@ const allCommands = [
 
   {
     name: "enterVisualMode",
-    desc: "Enter visual mode",
+    desc: "Enter select mode",
     group: "navigation",
     noRepeat: true,
   },
 
   {
     name: "enterVisualLineMode",
-    desc: "Enter visual line mode",
+    desc: "Enter select line mode",
     group: "navigation",
     advanced: true,
     noRepeat: true,

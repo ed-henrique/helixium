@@ -1,5 +1,6 @@
 import * as testHelper from "./test_helper.js";
 import "../../lib/utils.js";
+import "../../lib/settings.js";
 import "../../lib/dom_utils.js";
 import "../../content_scripts/ui_component.js";
 
@@ -19,12 +20,13 @@ context("UIComponent", () => {
     // Which page we load doesn't matter; we just need any DOM.
     await testHelper.jsdomStub("pages/help_dialog_page.html");
     stub(Utils, "isFirefox", () => false);
+    await Settings.onLoaded();
   });
 
   teardown(() => {
     // MessageChannel ports must be closed, or our test process will never terminate. See
     // https://github.com/facebook/react/issues/26608
-    for (const port of c?.messageChannelPorts) {
+    for (const port of c?.messageChannelPorts ?? []) {
       port.close();
     }
   });

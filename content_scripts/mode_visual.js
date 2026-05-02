@@ -271,7 +271,7 @@ class VisualMode extends KeyHandlerMode {
 
     super.init(Object.assign(options, {
       name: options.name != null ? options.name : "visual",
-      indicator: options.indicator != null ? options.indicator : "Visual mode",
+      indicator: options.indicator != null ? options.indicator : "Select mode",
       // Visual mode, visual-line mode and caret mode each displace each other.
       singleton: "visual-mode-group",
       exitOnEscape: true,
@@ -441,11 +441,29 @@ VisualMode.prototype.movements = {
   "G": "forward documentboundary",
   "gg": "backward documentboundary",
 
+  // Helix: ge extends to end of document (same as G in Vim visual mode)
+  "ge": "forward documentboundary",
+
   "aw"(count) {
     return this.movement.selectLexicalEntity(word, count);
   },
   "as"(count) {
     return this.movement.selectLexicalEntity(sentence, count);
+  },
+
+  // Helix: x selects the current line (extend to line bounds without yanking)
+  "x"(count) {
+    return this.movement.selectLine(count);
+  },
+
+  // Helix: ; collapses selection to single cursor (stays in select mode)
+  ";"() {
+    return this.movement.collapseSelectionToFocus();
+  },
+
+  // Helix: , removes secondary selections; in browser (single selection) this exits
+  ","() {
+    return this.exit();
   },
 
   "n"(count) {
@@ -499,7 +517,7 @@ class VisualLineMode extends VisualMode {
     if (options == null) {
       options = {};
     }
-    super.init(Object.assign(options, { name: "visual/line", indicator: "Visual mode (line)" }));
+    super.init(Object.assign(options, { name: "visual/line", indicator: "Select mode (line)" }));
     return this.extendSelection();
   }
 
